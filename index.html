@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CleanText｜源創智訊</title>
+  <meta name="description" content="CleanText 是針對高安全與網路受限環境設計的低頻寬資訊查詢訂閱服務。" />
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --brand: #16a34a;
+      --brand-dark: #15803d;
+      --accent: #0f172a;
+      --danger: #b91c1c;
+      --shadow: 0 10px 30px rgba(15, 23, 42, .08);
+      --radius: 18px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    img {
+      max-width: 100%
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(247, 248, 251, .9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(229, 231, 235, .8);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: .2px;
+    }
+
+    .brand small {
+      display: block;
+      font-size: .78rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: .95rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .btn-primary {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--brand-dark)
+    }
+
+    .btn-outline {
+      border-color: var(--line);
+      background: #fff;
+      color: var(--accent);
+    }
+
+    .hero {
+      padding: 68px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: #ecfdf5;
+      color: var(--brand-dark);
+      border: 1px solid #bbf7d0;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: .86rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 18px 0 14px;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.12;
+      letter-spacing: -.02em;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      color: #374151;
+      max-width: 760px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card h3 {
+      margin: 0 0 10px
+    }
+
+    .hero-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #374151
+    }
+
+    .section {
+      padding: 26px 0
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      margin: 0 0 10px;
+      letter-spacing: -.02em;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      margin: 0 0 22px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3,
+    .card h4 {
+      margin-top: 0
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    .plan {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .plan-tag {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #ecfeff;
+      color: #155e75;
+      border: 1px solid #a5f3fc;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .price {
+      font-size: 2.2rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin: 6px 0 2px;
+    }
+
+    .price small {
+      font-size: .95rem;
+      color: var(--muted);
+      font-weight: 700
+    }
+
+    .features {
+      padding-left: 18px;
+      margin: 14px 0 20px;
+      color: #374151;
+    }
+
+    .features li {
+      margin: 6px 0
+    }
+
+    .notice {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-top: 18px;
+      font-size: .95rem;
+    }
+
+    .checkout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .summary-box {
+      background: #f9fafb;
+      border: 1px dashed #cbd5e1;
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .row {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 14px
+    }
+
+    label {
+      font-weight: 700;
+      font-size: .95rem
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      font: inherit;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical
+    }
+
+    .fine {
+      font-size: .88rem;
+      color: var(--muted);
+    }
+
+    .alert {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #ecfdf5;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      font-weight: 700;
+    }
+
+    details {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 18px;
+    }
+
+    details+details {
+      margin-top: 12px
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 800
+    }
+
+    footer {
+      margin-top: 36px;
+      padding: 28px 0 48px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .kicker {
+      font-size: .92rem;
+      font-weight: 800;
+      color: var(--brand-dark)
+    }
+
+    .small {
+      font-size: .92rem
+    }
+
+    .danger {
+      color: var(--danger)
+    }
+
+    @media (max-width: 900px) {
+
+      .hero-grid,
+      .grid-3,
+      .grid-2,
+      .checkout {
+        grid-template-columns: 1fr
+      }
+
+      .nav-inner {
+        align-items: flex-start;
+        padding: 14px 0
+      }
+
+      .nav-links {
+        justify-content: flex-start
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <div class="brand">
+        CleanText
+        <small>源創智訊｜低頻寬資訊查詢訂閱服務</small>
+      </div>
+      <div class="nav-links">
+        <a href="#plans">方案</a>
+        <a href="#checkout">立即訂閱</a>
+        <a href="#store-info">商店資訊</a>
+        <a href="#refund">退款/退訂</a>
+        <a href="#terms">服務條款</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">數位訂閱服務・低頻寬資訊查詢</span>
+        <h1>在無法使用智慧型手機與網路的環境中，仍可取得即時資訊。</h1>
+        <p class="lead">
+          CleanText 是針對高安全與網路受限環境設計的資訊查詢服務。
+          使用者可透過簡訊取得即時資訊，適用於無塵室、工業製造現場與其他受限場域。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#plans">查看方案</a>
+          <a class="btn btn-outline" href="#checkout">立即訂閱</a>
+        </div>
+        <div class="notice">
+          本服務為資訊查詢服務，不構成投資建議、投資招攬或任何金融商品之買賣建議。
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>服務重點</h3>
+        <ul>
+          <li>適用於高安全、低頻寬、網路受限環境</li>
+          <li>透過簡訊提供資訊查詢服務</li>
+          <li>採月費制訂閱，付款後即可啟用服務</li>
+          <li>進階方案提供自訂群組功能</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">為什麼使用 CleanText？</h2>
+      <p class="section-desc">以簡單、穩定的方式提供資訊查詢能力，降低在受限環境中的資訊落差。</p>
+      <div class="grid-3">
+        <div class="card">
+          <div class="kicker">低頻寬</div>
+          <h3>不依賴 App 與網頁</h3>
+          <p class="muted">在無法使用智慧型手機與網路的情境中，仍可透過簡訊進行查詢。</p>
+        </div>
+        <div class="card">
+          <div class="kicker">簡單部署</div>
+          <h3>以手機號碼識別服務</h3>
+          <p class="muted">使用者完成訂閱後，以指定手機號碼開通服務，流程清楚簡單。</p>
+        </div>
+        <div class="card">
+          <div class="kicker">月費方案</div>
+          <h3>適合個人與進階使用</h3>
+          <p class="muted">提供基礎與進階方案，進階方案可使用自訂群組等額外功能。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="plans">
+    <div class="wrap">
+      <h2 class="section-title">訂閱方案</h2>
+      <p class="section-desc">以下為目前提供之月費訂閱方案，服務期間為 1 個月，採一次付清。</p>
+      <div class="grid-2">
+        <div class="card plan">
+          <h3>基礎方案</h3>
+          <div class="price">NT$199 <small>/ 月</small></div>
+          <p class="muted">適合一般使用者的基本資訊查詢需求。</p>
+          <ul class="features">
+            <li>個人簡訊資訊查詢服務</li>
+            <li>以單一手機號碼開通</li>
+            <li>月費制，1 個月為一期</li>
+          </ul>
+          <a class="btn btn-primary" href="#checkout" onclick="selectPlan('基礎方案',199)">立即訂閱</a>
+        </div>
+
+        <div class="card plan">
+          <div class="plan-tag">熱門方案</div>
+          <h3>進階方案</h3>
+          <div class="price">NT$349 <small>/ 月</small></div>
+          <p class="muted">適合有較高頻率使用需求，並需自訂群組功能者。</p>
+          <ul class="features">
+            <li>基礎查詢功能</li>
+            <li>可使用進階群組功能</li>
+            <li>月費制，1 個月為一期</li>
+          </ul>
+          <a class="btn btn-primary" href="#checkout" onclick="selectPlan('進階方案',349)">立即訂閱</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="checkout">
+    <div class="wrap">
+      <h2 class="section-title">購物車 / 結帳</h2>
+      <p class="section-desc">請確認欲訂閱方案，填寫聯絡資料與開通手機號碼後送出訂單。</p>
+
+      <div class="card checkout">
+        <div>
+          <h3>訂單摘要</h3>
+          <div class="summary-box">
+            <p><strong>商品名稱：</strong><span id="summaryPlan">基礎方案</span></p>
+            <p><strong>服務期間：</strong>1 個月</p>
+            <p><strong>付款方式：</strong>一次付清</p>
+            <p><strong>訂單金額：</strong><span id="summaryPrice">NT$199</span></p>
+            <p class="fine">送出訂單後，商家將依您選擇的付款方式提供後續開通流程。</p>
+          </div>
+          <div class="notice small">
+            目前付款頁面建置中。送出訂單後，將由商家協助完成付款與開通流程。
+          </div>
+        </div>
+
+        <div>
+          <form id="orderForm">
+            <div class="row">
+              <label for="plan">方案選擇</label>
+              <select id="plan" name="plan" onchange="syncPlanFromSelect()">
+                <option value="基礎方案|199">基礎方案｜NT$199 / 月</option>
+                <option value="進階方案|349">進階方案｜NT$349 / 月</option>
+              </select>
+            </div>
+
+            <div class="row">
+              <label for="phone">開通手機號碼</label>
+              <input id="phone" name="phone" type="tel" placeholder="例如：09xxxxxxxx" required />
+            </div>
+
+            <div class="row">
+              <label for="name">聯絡人姓名</label>
+              <input id="name" name="name" type="text" placeholder="請輸入姓名" required />
+            </div>
+
+            <div class="row">
+              <label for="email">聯絡 Email</label>
+              <input id="email" name="email" type="email" placeholder="name@example.com" required />
+            </div>
+
+            <div class="row">
+              <label for="contact">聯絡方式</label>
+              <input id="contact" name="contact" type="text" placeholder="LINE ID 或其他聯絡方式（選填）" />
+            </div>
+
+            <div class="row">
+              <label for="note">備註</label>
+              <textarea id="note" name="note" placeholder="如有特殊需求可填寫"></textarea>
+            </div>
+
+            <div class="row">
+              <label>
+                <input type="checkbox" required style="width:auto;transform:translateY(1px);margin-right:8px;">
+                我已閱讀並同意 <a href="#terms" style="color:var(--brand-dark);font-weight:800;">服務條款</a> 與 <a href="#refund"
+                  style="color:var(--brand-dark);font-weight:800;">退款/退訂政策</a>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%;">送出訂單</button>
+            <div id="successMsg" class="alert">
+              訂單已送出。商家將依您填寫的聯絡方式協助後續付款與開通。
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="store-info">
+    <div class="wrap">
+      <h2 class="section-title">商店資訊</h2>
+      <div class="card">
+        <p><strong>商店名稱：</strong>源創智訊（CleanText）</p>
+        <p><strong>服務性質：</strong>數位資訊查詢訂閱服務</p>
+        <p><strong>客服信箱：</strong>chenweichao.ricky@gmail.com</p>
+        <p><strong>客服方式：</strong>LINE 官方帳號</p>
+        <p><strong>服務時間：</strong>週一至週五 09:00 - 18:00</p>
+        <p><strong>官方網站：</strong>https://www.cleaningtext.com</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="refund">
+    <div class="wrap">
+      <h2 class="section-title">退款 / 退訂說明</h2>
+      <div class="card">
+        <p>1. 本服務為數位訂閱服務，採月費制，付款完成後開通服務。</p>
+        <p>2. 服務一經開通後，除非發生重複扣款、系統異常或商家無法提供服務之情形，原則上不提供退款。</p>
+        <p>3. 使用者可於到期後停止續訂，下期將不再收費或開通服務。</p>
+        <p>4. 如因系統或服務異常導致無法正常提供服務，商家將視情況提供補償、展延或退款處理。</p>
+        <p>5. 若有退款相關需求，請聯繫客服信箱或 LINE 官方帳號提出申請。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="terms">
+    <div class="wrap">
+      <h2 class="section-title">服務條款</h2>
+      <div class="grid-2">
+        <div>
+          <details open>
+            <summary>一、服務內容</summary>
+            <p>本服務為數位資訊查詢服務，主要提供在高安全與網路受限環境中的資訊查詢能力。</p>
+          </details>
+          <details>
+            <summary>二、服務開通</summary>
+            <p>使用者完成訂閱後，商家將依訂單資料以指定手機號碼開通相應服務方案。</p>
+          </details>
+          <details>
+            <summary>三、付款與期間</summary>
+            <p>本服務採月費制，每期為 1 個月，採一次付清方式計費。</p>
+          </details>
+          <details>
+            <summary>四、使用限制</summary>
+            <p>使用者不得利用本服務從事任何違法行為、干擾系統運作或冒用他人身份訂閱服務。</p>
+          </details>
+        </div>
+        <div>
+          <details open>
+            <summary>五、免責聲明</summary>
+            <p>本服務所提供內容僅供資訊查詢參考，不構成投資建議、投資招攬、保證收益或任何金融商品之交易建議。</p>
+          </details>
+          <details>
+            <summary>六、服務調整</summary>
+            <p>商家保留於必要時調整服務內容、方案內容與使用規則之權利，並將以適當方式公告。</p>
+          </details>
+          <details>
+            <summary>七、終止與停止</summary>
+            <p>如使用者違反本條款或提供不實資料，商家得暫停或終止其服務資格。</p>
+          </details>
+          <details>
+            <summary>八、客服聯繫</summary>
+            <p>若對服務內容、開通、付款或退款有疑問，請透過商店資訊中的客服方式聯繫商家。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="shopping">
+    <div class="wrap">
+      <h2 class="section-title">購物須知</h2>
+      <div class="card">
+        <p>1. 下單前請確認方案內容、服務期間與開通手機號碼。</p>
+        <p>2. 訂單送出後，商家將依您填寫之聯絡方式進行付款與開通通知。</p>
+        <p>3. 如填寫資料有誤，請儘速聯繫客服協助修正。</p>
+        <p>4. 本服務為數位服務，開通後即視為開始履約。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div><strong>CleanText｜源創智訊</strong></div>
+      <div class="small">本網站內容僅供服務介紹與訂閱申請使用。</div>
+    </div>
+  </footer>
+
+  <script>
+    function selectPlan(name, price) {
+      const value = `${name}|${price}`;
+      document.getElementById('plan').value = value;
+      document.getElementById('summaryPlan').textContent = name;
+      document.getElementById('summaryPrice').textContent = `NT$${price}`;
+    }
+
+    function syncPlanFromSelect() {
+      const raw = document.getElementById('plan').value.split('|');
+      document.getElementById('summaryPlan').textContent = raw[0];
+      document.getElementById('summaryPrice').textContent = `NT$${raw[1]}`;
+    }
+
+    document.getElementById('orderForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      document.getElementById('successMsg').style.display = 'block';
+      this.reset();
+      selectPlan('基礎方案', 199);
+      window.location.hash = 'checkout';
+    });
+
+    selectPlan('基礎方案', 199);
+  </script>
+</body>
+
+</html>
