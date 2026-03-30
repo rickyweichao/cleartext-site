@@ -17,6 +17,12 @@
       --brand-dark: #15803d;
       --accent: #0f172a;
       --danger: #b91c1c;
+      --warning-bg: #fff7ed;
+      --warning-line: #fed7aa;
+      --warning-text: #9a3412;
+      --success-bg: #ecfdf5;
+      --success-line: #bbf7d0;
+      --success-text: #166534;
       --shadow: 0 10px 30px rgba(15, 23, 42, .08);
       --radius: 18px;
       --max: 1120px;
@@ -43,10 +49,6 @@
       text-decoration: none
     }
 
-    img {
-      max-width: 100%
-    }
-
     .wrap {
       max-width: var(--max);
       margin: 0 auto;
@@ -57,9 +59,9 @@
       position: sticky;
       top: 0;
       z-index: 30;
-      background: rgba(247, 248, 251, .9);
+      background: rgba(247, 248, 251, .92);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(229, 231, 235, .8);
+      border-bottom: 1px solid rgba(229, 231, 235, .9);
     }
 
     .nav-inner {
@@ -67,6 +69,7 @@
       align-items: center;
       justify-content: space-between;
       min-height: 72px;
+      gap: 16px;
     }
 
     .brand {
@@ -183,7 +186,7 @@
     }
 
     .section {
-      padding: 26px 0
+      padding: 28px 0
     }
 
     .section-title {
@@ -197,15 +200,21 @@
       margin: 0 0 22px;
     }
 
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 18px;
     }
 
-    .grid-2 {
+    .grid-4 {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 18px;
     }
 
@@ -224,6 +233,12 @@
 
     .muted {
       color: var(--muted)
+    }
+
+    .kicker {
+      font-size: .92rem;
+      font-weight: 800;
+      color: var(--brand-dark)
     }
 
     .plan {
@@ -268,13 +283,30 @@
     }
 
     .notice {
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
-      color: #9a3412;
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-line);
+      color: var(--warning-text);
       border-radius: 14px;
       padding: 14px 16px;
       margin-top: 18px;
       font-size: .95rem;
+    }
+
+    .flow-step {
+      position: relative;
+    }
+
+    .flow-step .step-no {
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: var(--brand);
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: 10px;
     }
 
     .checkout {
@@ -288,6 +320,14 @@
       border: 1px dashed #cbd5e1;
       border-radius: 16px;
       padding: 18px;
+    }
+
+    .summary-box p {
+      margin: 0 0 10px;
+    }
+
+    .summary-box p:last-child {
+      margin-bottom: 0;
     }
 
     .row {
@@ -325,12 +365,13 @@
     .alert {
       display: none;
       margin-top: 14px;
-      padding: 14px 16px;
+      padding: 16px 18px;
       border-radius: 14px;
-      background: #ecfdf5;
-      border: 1px solid #bbf7d0;
-      color: #166534;
+      background: var(--success-bg);
+      border: 1px solid var(--success-line);
+      color: var(--success-text);
       font-weight: 700;
+      line-height: 1.8;
     }
 
     details {
@@ -356,25 +397,16 @@
       color: var(--muted);
     }
 
-    .kicker {
-      font-size: .92rem;
-      font-weight: 800;
-      color: var(--brand-dark)
-    }
-
     .small {
       font-size: .92rem
-    }
-
-    .danger {
-      color: var(--danger)
     }
 
     @media (max-width: 900px) {
 
       .hero-grid,
-      .grid-3,
       .grid-2,
+      .grid-3,
+      .grid-4,
       .checkout {
         grid-template-columns: 1fr
       }
@@ -400,7 +432,8 @@
       </div>
       <div class="nav-links">
         <a href="#plans">方案</a>
-        <a href="#checkout">立即訂閱</a>
+        <a href="#flow">下單流程</a>
+        <a href="#checkout">購物車/結帳</a>
         <a href="#store-info">商店資訊</a>
         <a href="#refund">退款/退訂</a>
         <a href="#terms">服務條款</a>
@@ -430,7 +463,7 @@
         <ul>
           <li>適用於高安全、低頻寬、網路受限環境</li>
           <li>透過簡訊提供資訊查詢服務</li>
-          <li>採月費制訂閱，付款後即可啟用服務</li>
+          <li>採月費制訂閱，付款完成後開通服務</li>
           <li>進階方案提供自訂群組功能</li>
         </ul>
       </div>
@@ -463,7 +496,7 @@
 
   <section class="section" id="plans">
     <div class="wrap">
-      <h2 class="section-title">訂閱方案</h2>
+      <h2 class="section-title">商品方案</h2>
       <p class="section-desc">以下為目前提供之月費訂閱方案，服務期間為 1 個月，採一次付清。</p>
       <div class="grid-2">
         <div class="card plan">
@@ -475,7 +508,7 @@
             <li>以單一手機號碼開通</li>
             <li>月費制，1 個月為一期</li>
           </ul>
-          <a class="btn btn-primary" href="#checkout" onclick="selectPlan('基礎方案',199)">立即訂閱</a>
+          <a class="btn btn-primary" href="#checkout" onclick="selectPlan('基礎方案',199)">加入購物車 / 立即訂閱</a>
         </div>
 
         <div class="card plan">
@@ -485,10 +518,39 @@
           <p class="muted">適合有較高頻率使用需求，並需自訂群組功能者。</p>
           <ul class="features">
             <li>基礎查詢功能</li>
-            <li>可使用進階群組功能</li>
+            <li>進階群組功能</li>
             <li>月費制，1 個月為一期</li>
           </ul>
-          <a class="btn btn-primary" href="#checkout" onclick="selectPlan('進階方案',349)">立即訂閱</a>
+          <a class="btn btn-primary" href="#checkout" onclick="selectPlan('進階方案',349)">加入購物車 / 立即訂閱</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="flow">
+    <div class="wrap">
+      <h2 class="section-title">消費者下單流程</h2>
+      <p class="section-desc">以下為消費者於網站下單、選擇付款方式並完成開通之流程。</p>
+      <div class="grid-4">
+        <div class="card flow-step">
+          <div class="step-no">1</div>
+          <h3>選擇商品方案</h3>
+          <p class="muted">於商品方案頁選擇基礎方案 NT$199/月，或進階方案 NT$349/月。</p>
+        </div>
+        <div class="card flow-step">
+          <div class="step-no">2</div>
+          <h3>進入購物車 / 結帳</h3>
+          <p class="muted">確認商品名稱、價格、服務期間，並填寫聯絡人與開通手機號碼。</p>
+        </div>
+        <div class="card flow-step">
+          <div class="step-no">3</div>
+          <h3>選擇付款方式</h3>
+          <p class="muted">目前提供 LINE Pay 與銀行轉帳 / ATM 轉帳兩種付款方式。</p>
+        </div>
+        <div class="card flow-step">
+          <div class="step-no">4</div>
+          <h3>付款完成後開通</h3>
+          <p class="muted">訂單建立後完成付款，系統即依訂單資料開通對應服務方案。</p>
         </div>
       </div>
     </div>
@@ -497,20 +559,22 @@
   <section class="section" id="checkout">
     <div class="wrap">
       <h2 class="section-title">購物車 / 結帳</h2>
-      <p class="section-desc">請確認欲訂閱方案，填寫聯絡資料與開通手機號碼後送出訂單。</p>
+      <p class="section-desc">請確認商品、價格與付款方式，填寫資料後建立訂單。</p>
 
       <div class="card checkout">
         <div>
-          <h3>訂單摘要</h3>
+          <h3>購物車明細</h3>
           <div class="summary-box">
             <p><strong>商品名稱：</strong><span id="summaryPlan">基礎方案</span></p>
             <p><strong>服務期間：</strong>1 個月</p>
-            <p><strong>付款方式：</strong>一次付清</p>
-            <p><strong>訂單金額：</strong><span id="summaryPrice">NT$199</span></p>
-            <p class="fine">送出訂單後，商家將依您選擇的付款方式提供後續開通流程。</p>
+            <p><strong>商品價格：</strong><span id="summaryPrice">NT$199</span></p>
+            <p><strong>付款週期：</strong>一次付清</p>
+            <p><strong>付款方式：</strong><span id="summaryMethod">尚未選擇</span></p>
+            <p><strong>訂單狀態：</strong>待建立訂單</p>
           </div>
+
           <div class="notice small">
-            目前付款頁面建置中。送出訂單後，將由商家協助完成付款與開通流程。
+            建立訂單後，系統將顯示訂單編號、商品價格、付款方式與待付款狀態；付款完成後依訂單資料開通服務。
           </div>
         </div>
 
@@ -521,6 +585,15 @@
               <select id="plan" name="plan" onchange="syncPlanFromSelect()">
                 <option value="基礎方案|199">基礎方案｜NT$199 / 月</option>
                 <option value="進階方案|349">進階方案｜NT$349 / 月</option>
+              </select>
+            </div>
+
+            <div class="row">
+              <label for="paymentMethod">付款方式</label>
+              <select id="paymentMethod" name="paymentMethod" onchange="syncPaymentMethod()" required>
+                <option value="">請選擇付款方式</option>
+                <option value="LINE Pay">LINE Pay</option>
+                <option value="銀行轉帳 / ATM 轉帳">銀行轉帳 / ATM 轉帳</option>
               </select>
             </div>
 
@@ -540,8 +613,8 @@
             </div>
 
             <div class="row">
-              <label for="contact">聯絡方式</label>
-              <input id="contact" name="contact" type="text" placeholder="LINE ID 或其他聯絡方式（選填）" />
+              <label for="contact">LINE ID / 其他聯絡方式</label>
+              <input id="contact" name="contact" type="text" placeholder="選填" />
             </div>
 
             <div class="row">
@@ -552,15 +625,14 @@
             <div class="row">
               <label>
                 <input type="checkbox" required style="width:auto;transform:translateY(1px);margin-right:8px;">
-                我已閱讀並同意 <a href="#terms" style="color:var(--brand-dark);font-weight:800;">服務條款</a> 與 <a href="#refund"
-                  style="color:var(--brand-dark);font-weight:800;">退款/退訂政策</a>
+                我已閱讀並同意 <a href="#terms" style="color:var(--brand-dark);font-weight:800;">服務條款</a> 與
+                <a href="#refund" style="color:var(--brand-dark);font-weight:800;">退款/退訂政策</a>
               </label>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width:100%;">送出訂單</button>
-            <div id="successMsg" class="alert">
-              訂單已送出。商家將依您填寫的聯絡方式協助後續付款與開通。
-            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">建立訂單並前往付款</button>
+
+            <div id="successMsg" class="alert"></div>
           </form>
         </div>
       </div>
@@ -605,7 +677,7 @@
           </details>
           <details>
             <summary>二、服務開通</summary>
-            <p>使用者完成訂閱後，商家將依訂單資料以指定手機號碼開通相應服務方案。</p>
+            <p>使用者完成付款後，商家將依訂單資料以指定手機號碼開通相應服務方案。</p>
           </details>
           <details>
             <summary>三、付款與期間</summary>
@@ -642,10 +714,11 @@
     <div class="wrap">
       <h2 class="section-title">購物須知</h2>
       <div class="card">
-        <p>1. 下單前請確認方案內容、服務期間與開通手機號碼。</p>
-        <p>2. 訂單送出後，商家將依您填寫之聯絡方式進行付款與開通通知。</p>
-        <p>3. 如填寫資料有誤，請儘速聯繫客服協助修正。</p>
-        <p>4. 本服務為數位服務，開通後即視為開始履約。</p>
+        <p>1. 下單前請確認方案內容、服務期間、商品價格與開通手機號碼。</p>
+        <p>2. 訂單建立後，請依選擇之付款方式完成付款。</p>
+        <p>3. 付款完成後，商家將依訂單資料開通對應服務方案。</p>
+        <p>4. 如填寫資料有誤，請儘速聯繫客服協助修正。</p>
+        <p>5. 本服務為數位服務，開通後即視為開始履約。</p>
       </div>
     </div>
   </section>
@@ -653,7 +726,7 @@
   <footer>
     <div class="wrap">
       <div><strong>CleanText｜源創智訊</strong></div>
-      <div class="small">本網站內容僅供服務介紹與訂閱申請使用。</div>
+      <div class="small">本網站內容供商品展示、訂單建立與付款流程說明使用。</div>
     </div>
   </footer>
 
@@ -671,15 +744,33 @@
       document.getElementById('summaryPrice').textContent = `NT$${raw[1]}`;
     }
 
+    function syncPaymentMethod() {
+      const method = document.getElementById('paymentMethod').value || '尚未選擇';
+      document.getElementById('summaryMethod').textContent = method;
+    }
+
     document.getElementById('orderForm').addEventListener('submit', function (e) {
       e.preventDefault();
+
+      const planRaw = document.getElementById('plan').value.split('|');
+      const paymentMethod = document.getElementById('paymentMethod').value;
+      const orderId = 'CT' + new Date().getFullYear() + String(Date.now()).slice(-6);
+
+      document.getElementById('successMsg').innerHTML = `
+        訂單建立成功。<br>
+        訂單編號：${orderId}<br>
+        訂購方案：${planRaw[0]}<br>
+        訂單金額：NT$${planRaw[1]}<br>
+        付款方式：${paymentMethod}<br>
+        訂單狀態：待付款<br>
+        請依所選付款方式完成付款，付款完成後將開通服務。
+      `;
       document.getElementById('successMsg').style.display = 'block';
-      this.reset();
-      selectPlan('基礎方案', 199);
       window.location.hash = 'checkout';
     });
 
     selectPlan('基礎方案', 199);
+    syncPaymentMethod();
   </script>
 </body>
 
